@@ -1,0 +1,29 @@
+<div class="nav-container">
+  <nav class="navbar">
+    <h1 id="navbar-logo"><a href="{%url 'home'%}">CODE365</a></h1>
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="{%url 'home'%}" class="nav-links">HOME</a></li>
+      <li><a href="{%url 'all'%}" class="nav-links">ALL</a></li>
+      <li><a href="{% url 'about'%}" class="nav-links">ABOUT</a></li>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          SUPPORTED SITES
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Codeforces</a>
+          <a class="dropdown-item" href="#">Atcoder</a>
+          <a class="dropdown-item" href="#">TopCoder</a>
+          <a class="dropdown-item" href="#">Codechef</a>
+          <a class="dropdown-item" href="#">HackerRank</a>
+          <a class="dropdown-item" href="#">HackerEarth</a>
+        </div>
+      </div>
+    </ul>
+  </nav>
+</div>

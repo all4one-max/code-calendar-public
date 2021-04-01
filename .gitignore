@@ -1,0 +1,4 @@
+db.sqlite3
+client_id.json
+service_key.json
+__pycache__

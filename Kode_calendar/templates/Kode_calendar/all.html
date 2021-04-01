@@ -1,0 +1,270 @@
+{% extends 'Kode_calendar/main.html' %}
+
+{%load static%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+{% block content %}
+
+{% include 'Kode_calendar/messages.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <span>CODEFORCES</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+
+                    <table class="table table-hover borderless">
+
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in cf_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <span>AT CODER</span>
+            <div class=" jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in atc_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>TOP CODER</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in tc_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <span>HACKERRANK</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in hrd_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>LEETCODE</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in lc_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <span>CODE CHEF</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in cc_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm flex-nowrap" id="empty1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>HACKEREARTH</span>
+            <div class="jumbotron">
+                <div class="fixed-head">
+                    <table class="table table-hover borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Contest</th>
+                                <th scope="col">start</th>
+                                <th scope="col">end</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contest in hed_data %}
+                            <tr>
+                                <td>
+                                    <form action="{%url 'oauth_all' %}" method="POST" id="reminder">
+                                        {% csrf_token %}
+                                        <button type="submit" name="reminder_button" value="{{contest.name}}"
+                                            class="btn btn-primary">
+                                            <i class=" fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><a href={{contest.url}} target="_blank">{{contest.name}}</a></td>
+                                <td>{{contest.start_time}}</td>
+                                <td>{{contest.end_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

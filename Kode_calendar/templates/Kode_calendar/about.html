@@ -1,0 +1,103 @@
+{% extends 'Kode_calendar/main.html' %}
+{%load static%}
+{% block content %}
+<style>
+  .fa-github-square {
+    color: grey !important;
+  }
+
+  .fa-facebook-square {
+    color: #3b5998;
+    padding-left: 0 !important;
+  }
+
+  .about-section {
+    padding: 50px;
+    text-align: center;
+  }
+
+  .card-img-top {
+    max-height: 20vh;
+    /*not want to take all vertical space*/
+    object-fit: contain;
+    /*show all image, autosized, no cut, in available space*/
+
+  }
+</style>
+<div class="container">
+  <div class="about-section">
+    <!-- <h1>About Us Page</h1> -->
+    <h1>Our Vision</h1>
+    <h6 style="margin-top: 20px;margin-bottom: 100px;">To help people being up to date with the upcoming coding
+      competitions in different websites</h6>
+    <h1 style="margin-bottom: 30px;">How do we achieve it</h1>
+    <div class="row">
+      <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{% static 'images/contest.png'%}" alt="Card image cap">
+          <div class="card-body">
+
+            <p class="card-text">One page for all the contest happening in all the websites</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{% static 'images/Gmail-logo.png'%}" alt="Card image cap">
+          <div class="card-body">
+
+            <p class="card-text">Sending reminder via mail 24 hours before the contest</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{% static 'images/system.png'%}" alt="Card image cap">
+          <div class="card-body">
+
+            <p class="card-text">Sending system notification 10 minutes before the contest</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="text-align:center;margin-bottom: 32px;">Our Team</h2>
+  <div class="row" style="margin-left: 180px;">
+    <div class="col-md-6" id="1">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{%static 'images/photo1.png'%}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Saurav Jha</h5>
+
+          <div class="row justify-content-around" id="frow">
+            <div class="col-sm-12 socialWrapper">
+              <a href="https://www.instagram.com/all__4_1/"><i class="fa fa-instagram fa-3x"></i></a>
+              <a href="https://github.com/all4one-max"><i class="fa fa-github-square fa-3x"></i></a>
+              <a href="https://www.linkedin.com/in/saurav-jha-603173136/"><i class="fa fa-linkedin fa-3x"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" id="2">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{%static 'images/photo2.png'%}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Keshav Goel</h5>
+          <div class="row justify-content-around" id="frow">
+            <div class="col-sm-12 socialWrapper">
+              <a href="#"><i class="fa fa-instagram fa-3x"></i></a>
+              <a href="https://github.com/keshav25201"><i class="fa fa-github-square fa-3x"></i></a>
+              <a href="https://www.linkedin.com/in/keshav-goel-258704194/"><i class="fa fa-linkedin fa-3x"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
