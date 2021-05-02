@@ -27,7 +27,7 @@ SECRET_KEY = "^xj#2x=nf1&*03*(cg0@1@#xppzh6qyuvbi9ate$%)xmd4i9ku"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["code365.herokuapp.com","127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -44,9 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -134,17 +132,17 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
 
 # SMTP configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com";
-EMAIL_PORT = 587;
-EMAIL_HOST_USER = "nsut_coders@protonmail.com";
-EMAIL_HOST_PASSWORD = r"+6>}&9\4g{1u#0;.a`@-";
-EMAIL_USE_TLS = True;
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "nsut_coders@protonmail.com"
+EMAIL_HOST_PASSWORD = r"+6>}&9\4g{1u#0;.a`@-"
+EMAIL_USE_TLS = True
 
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
 }
