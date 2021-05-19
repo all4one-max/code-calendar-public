@@ -6,20 +6,24 @@ set reminders so that you don't forget about the contests.
 # Built with
 
 ![Python](https://img.shields.io/badge/Python-3.8-blueviolet)
-![Library](https://img.shields.io/badge/Library-keras-red)
-![Library](https://img.shields.io/badge/Library-tensorflow-blue)
-![Framework](https://img.shields.io/badge/Framework-flask-success)
+![Library](https://img.shields.io/badge/Library-APScheduler-red)
+![API](https://img.shields.io/badge/API-Kontests-orange)
+![API](https://img.shields.io/badge/API-Google%20Calendar-brightgreen)
+![Framework](https://img.shields.io/badge/Framework-Django-blue)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS-blueviolet)
 
 # Overview
 
--   For Aggregating the contest we have used Konstest API(https://www.kontests.net/api).
+-   For Aggregating the contest of various websites we have used [Konstest API](https://www.kontests.net/api), but for codechef we
+    have made our own scrapper using Selenium.
 
--   One thing to note is that the words in the sentence has been vectorized, so similar words may have similar vectors, which is a better option than using bag of words or Tf-Idf, which do not take into account the semantics of sentences.
+-   if you set a reminder using this website it will notify you 24 hours before the contest via mail and give you a desktop notification
+    10 minute before the contest. This feature has been set up [Google's Calendar API v3](https://developers.google.com/calendar)
 
--   Training a deep learning model on local system takes a lot of time, thats why the model has been trained on google collab with GPU session.
+-   To update our Database periodically we have used [Advanced Python Scheduler Library](https://apscheduler.readthedocs.io/en/stable/)
+    which makes the API call in the interval of 16 hours.
 
--   Finally, to make the web app Flask has been used in the Backend and HTML, CSS and Bootstrap on the frontend.
+-   The Backend of this website has been made using Django and Frontend has been made using HTML, CSS, Bootsrap and JavaScript.
 
 # Demo
 
