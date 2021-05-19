@@ -327,8 +327,6 @@ def call(url, site_model, name):
 
 class api_calling:
     def site_call(self):
-        print("inside site calling")
-        print()
         all_contest.objects.all().delete()
         call("https://www.kontests.net//api/v1/codeforces", codeforces, "cf")
         call("https://www.kontests.net//api/v1/at_coder", atcoder, "ac")
@@ -336,7 +334,6 @@ class api_calling:
         call("https://www.kontests.net//api/v1/hacker_earth", hackerearth, "he")
         call("https://www.kontests.net//api/v1/leet_code", leetcode, "lc")
         call("https://www.kontests.net//api/v1/top_coder", topcoder, "tc")
-        print("break")
         call("", codechef, "cc")
         return
 
@@ -344,6 +341,7 @@ class api_calling:
 def get_local_time(time):
     global ltz
     # print(local_timezone,utc_timezone,time)
+    ltz = datetime.now(tz.tzlocal()).tzname()
     utc_timezone = tz.gettz("UTC")
     local_timezone = tz.gettz(ltz)
     time = re.split("\W+", time)
@@ -380,8 +378,6 @@ def get_data(instance):
 def all(request):
     global ltz
     ltz = datetime.now(tz.tzlocal()).tzname()
-    print(ltz)
-    print(get_localzone())
     cf_data = get_data(codeforces)
     atc_data = get_data(atcoder)
     tc_data = get_data(topcoder)
@@ -405,7 +401,7 @@ def about(request):
     return render(request, "Kode_calendar/about.html")
 
 
-REDIRECT_URI = "https://code365.herokuapp.com/google_oauth/callback/"
+REDIRECT_URI = "http://127.0.0.1:8000/google_oauth/callback/"
 service_account_email = "code-calendar@wise-bongo-308711.iam.gserviceaccount.com"
 scopes = ["https://www.googleapis.com/auth/calendar.events"]
 JSON_FILEPATH = os.path.join(os.getcwd(), "client_id.json")
@@ -421,7 +417,6 @@ def RedirectOauthView_all(request):
     global contest_name, return_url
     return_url = "all"
     contest_name = request.POST.get("reminder_button")
-    print(contest_name)
     auth_url, _ = flow.authorization_url()
     return HttpResponseRedirect(auth_url)
 
@@ -436,9 +431,7 @@ def RedirectOauthView_home(request):
 
 def Callback(request):
     global return_url
-    print("ok")
     flow.fetch_token(code=request.GET["code"])
-    print("not ok")
     credentials = flow.credentials
     service = build("calendar", "v3", credentials=credentials)
     create_event(service)
@@ -461,8 +454,7 @@ def add_contest_to_calendar():
 
 
 def create_event(service):
-    print("came here also")
-    print(add_contest_to_calendar())
+    url, st, et = add_contest_to_calendar()
     st = re.split("\W+", st)
     et = re.split("\W+", et)
     start_time = datetime(int(st[2]), md[st[1]], int(st[0]), int(st[3]), int(st[4]), 0)

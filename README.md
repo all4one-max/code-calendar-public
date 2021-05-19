@@ -19,3 +19,7 @@ This web app convert french sentences to english sentences.
 -   Training a deep learning model on local system takes a lot of time, thats why the model has been trained on google collab with GPU session.
 
 -   Finally, to make the web app Flask has been used in the Backend and HTML, CSS and Bootstrap on the frontend.
+
+# Demo
+
+![GIF](./code_365_DEMO.gif)
