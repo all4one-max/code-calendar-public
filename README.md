@@ -1,6 +1,7 @@
-# Neural Machine Translator
+# CODE 365
 
-This web app convert french sentences to english sentences.
+This web app brings to you all the programming contests happening on various websites in one place and enables you to
+set reminders so that you don't forget about the contests.
 
 # Built with
 
@@ -12,7 +13,7 @@ This web app convert french sentences to english sentences.
 
 # Overview
 
--   The model has been built on top of keras Sequential api and uses LSTM for training.
+-   For Aggregating the contest we have used Konstest API(https://www.kontests.net/api).
 
 -   One thing to note is that the words in the sentence has been vectorized, so similar words may have similar vectors, which is a better option than using bag of words or Tf-Idf, which do not take into account the semantics of sentences.
 
