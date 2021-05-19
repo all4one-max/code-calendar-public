@@ -18,7 +18,7 @@ set reminders so that you don't forget about the contests.
     have made our own scrapper using Selenium.
 
 -   if you set a reminder using this website it will notify you 24 hours before the contest via mail and give you a desktop notification
-    10 minute before the contest. This feature has been set up [Google's Calendar API v3](https://developers.google.com/calendar)
+    10 minute before the contest. This feature has been set up using [Google's Calendar API v3](https://developers.google.com/calendar)
 
 -   To update our Database periodically we have used [Advanced Python Scheduler Library](https://apscheduler.readthedocs.io/en/stable/)
     which makes the API call in the interval of 16 hours.
@@ -28,3 +28,13 @@ set reminders so that you don't forget about the contests.
 # Demo
 
 ![GIF](./code_365_DEMO.gif)
+
+## Future Scope
+
+-   Deploy the web app on heroku(for free Obviously)
+-   Merge A2OJ problems with the websites
+-   Front-End
+
+## Creator's Contact
+
+#### [Saurav Jha](https://www.linkedin.com/in/saurav-jha-603173136/) [Keshav Goel](https://www.linkedin.com/in/keshav-goel-258704194/)
