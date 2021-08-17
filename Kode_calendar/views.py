@@ -1,24 +1,16 @@
-from os import name, utime
-from django.http import response
-from django.http.response import Http404, HttpResponse
 from django.shortcuts import render, redirect
 import requests, json
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from selenium import webdriver
-from .forms import CreateUserForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 from .models import *
 from django.http import HttpResponseRedirect
 import os
 from apiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-import google_auth_oauthlib
 from google_auth_oauthlib.flow import Flow
 import re
 from dateutil import tz
 from django.contrib import messages
-from tzlocal import get_localzone
 
 d = {
     1: "January",
@@ -50,40 +42,8 @@ md = {
     "December": 12,
 }
 
-ccmd = {
-    "Jan": 1,
-    "Feb": 2,
-    "Mar": 3,
-    "Apr": 4,
-    "May": 5,
-    "Jun": 6,
-    "Jul": 7,
-    "Aug": 8,
-    "Sep": 9,
-    "Oct": 10,
-    "Nov": 11,
-    "Dec": 12,
-}
-
 ltz = ""
 # Create your views here.
-def days(strt_time):
-    one_day_ahead = str(timedelta(days=1) + datetime.now())
-    c1, c2, c3 = int(strt_time[:4]), int(strt_time[5:7]), int(strt_time[8:10])
-    a1, a2, a3 = (
-        int(one_day_ahead[:4]),
-        int(one_day_ahead[5:7]),
-        int(one_day_ahead[8:10]),
-    )
-    diff = str(datetime(a1, a2, a3) - datetime(c1, c2, c3))
-    if diff == 0:
-        return 1
-    elif diff == 1:
-        return 0
-    else:
-        return -1
-
-
 def is_today_or_tomorrow(contest_date):
     nowtime = datetime.now()
     # contest_time = datetime.strptime(contest_date, "%Y-%m-%dT%H:%M:%S.%fz")
@@ -106,18 +66,10 @@ def make_api_calls():
             start_time = datetime(
                 int(st[2]), md[st[1]], int(st[0]), int(st[3]), int(st[4]), 0
             )
-        else:
-            start_time = datetime(
-                int(st[2]), ccmd[st[1]], int(st[0]), int(st[3]), int(st[4]), 0
-            )
         et = re.split("\W+", contests.end_time)
         if md.get(et[1], -1) != -1:
             end_time = datetime(
                 int(et[2]), md[et[1]], int(et[0]), int(et[3]), int(et[4]), 0
-            )
-        else:
-            end_time = datetime(
-                int(et[2]), ccmd[et[1]], int(et[0]), int(et[3]), int(et[4]), 0
             )
         # print(contests.name,start_time,end_time)
         dic = {
@@ -147,56 +99,6 @@ def make_api_calls():
     # print(today)
     # print(tomorrow)
     return today, tomorrow
-
-
-def convert_codechef_time_to_utc(s):
-    global ltz
-    utc_timezone = tz.gettz("UTC")
-    local_timezone = tz.gettz(ltz)
-    s = re.split("\W+", s)
-    local_time = datetime(int(s[2]), int(ccmd[s[1]]), int(s[0]), int(s[3]), int(s[4]))
-    local_time = local_time.replace(tzinfo=local_timezone)
-    utc_time = str(local_time.astimezone(utc_timezone))
-    date = utc_time[:10]
-    time = utc_time[11:16]
-    # print(utc_time)
-    # print(date)
-    day = int(date[8:10])
-    year = date[:4]
-    month = d[int(date[5:7])]
-    final = str(day) + " " + month + " " + year + " " + time
-    return final
-
-
-def code_chef_scraper():
-    driver = webdriver.Chrome(r"C:\\Users\\jhasa\\Desktop\\chromedriver")
-    driver.get(
-        "https://www.codechef.com/contests/?itm_medium=navmenu&itm_campaign=allcontests_head"
-    )
-    d = driver.find_elements_by_xpath("//tbody[@id='future-contests-data']/tr/td")
-    c = driver.find_elements_by_xpath("//tbody[@id='future-contests-data']/tr/td/a")
-    links = []
-    for ele in c:
-        links.append(ele.get_attribute("href"))
-    li = []
-    i, j = 0, 0
-    while i < len(d):
-        start_time = d[i + 2].text
-        start_time = start_time.replace("\n", " ")
-        end_time = d[i + 3].text
-        end_time = end_time.replace("\n", " ")
-        dct = {
-            "name": d[i + 1].text,
-            "start_time": convert_codechef_time_to_utc(start_time),
-            "end_time": convert_codechef_time_to_utc(end_time),
-            "url": links[j],
-        }
-        li.append(dct)
-        i += 4
-        j += 1
-    # print(li)
-    driver.quit()
-    return li
 
 
 def get_correct_url(cf_data):
@@ -257,14 +159,11 @@ def home(request):
 def call(url, site_model, name):
     global ltz
     ltz = datetime.now(tz.tzlocal()).tzname()
-    if name == "cc":
-        site_data = code_chef_scraper()
-    else:
-        responses = requests.get(url)
-        site_data = json.loads(responses.text)
-        if name == "cf":
-            site_data = get_correct_url(site_data)
-        site_data = get_date_time_helper_api_call(site_data)
+    responses = requests.get(url)
+    site_data = json.loads(responses.text)
+    if name == "cf":
+        site_data = get_correct_url(site_data)
+    site_data = get_date_time_helper_api_call(site_data)
     site_model.objects.all().delete()
     for contest in site_data:
         instance = site_model(
@@ -293,7 +192,6 @@ class api_calling:
         call("https://www.kontests.net//api/v1/hacker_earth", hackerearth, "he")
         call("https://www.kontests.net//api/v1/leet_code", leetcode, "lc")
         call("https://www.kontests.net//api/v1/top_coder", topcoder, "tc")
-        call("", codechef, "cc")
         return
 
 
@@ -304,14 +202,9 @@ def get_local_time(time):
     utc_timezone = tz.gettz("UTC")
     local_timezone = tz.gettz(ltz)
     time = re.split("\W+", time)
-    if md.get(time[1], -1) == -1:
-        utc_time = datetime(
-            int(time[2]), ccmd[time[1]], int(time[0]), int(time[3]), int(time[4]), 0
-        )
-    else:
-        utc_time = datetime(
-            int(time[2]), md[time[1]], int(time[0]), int(time[3]), int(time[4]), 0
-        )
+    utc_time = datetime(
+        int(time[2]), md[time[1]], int(time[0]), int(time[3]), int(time[4]), 0
+    )
     utc_time = utc_time.replace(tzinfo=utc_timezone)
     local_time = utc_time.astimezone(local_timezone)
     return get_date_time(str(local_time))
@@ -342,7 +235,6 @@ def all(request):
     tc_data = get_data(topcoder)
     hrd_data = get_data(hackerrank)
     hed_data = get_data(hackerearth)
-    cc_data = get_data(codechef)
     lc_data = get_data(leetcode)
     context = {
         "cf_data": cf_data,
@@ -351,7 +243,6 @@ def all(request):
         "hed_data": hed_data,
         "lc_data": lc_data,
         "tc_data": tc_data,
-        "cc_data": cc_data,
     }
     return render(request, "Kode_calendar/all.html", context)
 

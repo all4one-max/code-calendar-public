@@ -44,12 +44,6 @@ class hackerearth(models.Model):
     end_time = models.CharField(max_length=200, null=True)
 
 
-class codechef(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    url = models.CharField(max_length=200, null=True)
-    start_time = models.CharField(max_length=200, null=True)
-    end_time = models.CharField(max_length=200, null=True)
-
 class all_contest(models.Model):
     name = models.CharField(max_length=200, null=True)
     url = models.CharField(max_length=200, null=True)

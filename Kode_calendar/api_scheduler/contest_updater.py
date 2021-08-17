@@ -10,7 +10,7 @@ def start():
     scheduler.add_job(
         instance.site_call,
         "interval",
-        minutes=60,
+        minutes=20,
         id="api_001",
         replace_existing=True,
     )
