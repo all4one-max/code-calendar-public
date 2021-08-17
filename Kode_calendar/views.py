@@ -240,11 +240,6 @@ def get_date_time_helper_api_call(site_data):
     return new
 
 
-def privacy_policy(request):
-    context = {}
-    return render(request, "Kode_calendar/privacy_policy.html", context)
-
-
 def home(request):
     global ltz
     ltz = datetime.now(tz.tzlocal()).tzname()
@@ -257,42 +252,6 @@ def home(request):
     tomorrow = get_date_time_helper(tomorrow)
     context = {"today": today, "tomorrow": tomorrow}
     return render(request, "Kode_calendar/home.html", context)
-
-
-def register(request):
-    form = CreateUserForm()
-    if request.method == "POST":
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get("username")
-            messages.success(request, "Account was created for " + username)
-            return redirect("login")
-
-    context = {"form": form}
-    return render(request, "Kode_calendar/register.html", context)
-
-
-def loginPage(request):
-    context = {}
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect("all")
-        else:
-            messages.info(request, "Username or Password is incorrect")
-
-    return render(request, "Kode_calendar/login.html", context)
-
-
-def logoutUser(request):
-    logout(request)
-    return redirect("all")
 
 
 def call(url, site_model, name):
